@@ -14,8 +14,8 @@
 
 ### 주의 사항
 
-- 코드를 보는 용도로 사용되는 프로젝트 입니다.
-- Implement 구현이 제대로 안되어서 500으로 반환됩니다.
+- 구조 및 스타일을 보는 용도로 사용되는 프로젝트 입니다.
+- Implement 구현이 제대로 안되어서 sample의 경우, 500으로 반환됩니다. DB Health는 정상 반환 합니다.
 - 차후 버전에 따라 기본 메소드를 지원할 예정입니다.
 
 ### 실행 방법
@@ -40,6 +40,13 @@
 - FastAPI의 response_model 설정
 - Celery Method Auto Wiring
 
+### 향후 적용할 것
+
+- NestJS에 존재하는 generate 시스템 동일 구현
+- 더 쉬운 Celery Task 할당
+- Auth 관련 시스템
+- Dependency Injector 개선
+
 ### 참고 및 동일 지향점 정보
 
 - https://geminikims.medium.com/지속-성장-가능한-소프트웨어를-만들어가는-방법-97844c5dab63
@@ -56,8 +63,8 @@
 
 ### Notification
 
-- It is a project used to view the code.
-- The Implementation is not implemented properly, so it is returned to 500.
+- It is a project used to view the architecture and style of develop.
+- The Sample's Implementation is not implemented properly, so it is returned to 500. but, health domain will return successfully.
 - I will support the basic method depending on the future version.
 
 ### How to execute
@@ -81,6 +88,13 @@
 - Implement of Interfaces
 - FastAPI's response_model setting
 - Celery Method Auto Wiring
+
+### Future
+
+- Same implementation of the generate system present in NestJS
+- easier Celery Task assignment
+- Auth-related systems
+- Improve Dependency Injector
 
 ### My favorite and Refer
 
