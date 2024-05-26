@@ -1,0 +1,96 @@
+version: "3.8"
+
+# You have to consider using replicas, using container_name by unique error
+# 8000 : Main Service that Export by Nginx
+# 8001 : Flower Client
+
+services:
+  template-nginx:
+    container_name: "template-nginx"
+    image: "template-nginx:latest"
+    build:
+      context: ./resource/docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - template-server
+    networks:
+      - template-network
+
+  template-server:
+    container_name: "template-server"
+    image: "template-server:latest"
+    build:
+      context: .
+      dockerfile: ./resource/docker/server/Dockerfile
+    networks:
+      - template-network
+    deploy:
+      replicas: 1
+    depends_on:
+      - template-celery-redis
+      - template-mariadb
+      - template-mongo
+      - template-redis
+
+  template-celery-server:
+    image: "template-celery-server:latest"
+    build:
+      context: .
+      dockerfile: ./resource/docker/celery/CeleryDockerfile
+    networks:
+      - template-network
+    deploy:
+      replicas: 4
+    depends_on:
+      - template-server
+
+  template-flower-server:
+    container_name: "template-flower-server"
+    image: "template-flower-server:latest"
+    build:
+      context: .
+      dockerfile: ./resource/docker/celery/FlowerDockerfile
+    networks:
+      - template-network
+    ports:
+      - "8001:7777"
+    deploy:
+      replicas: 1
+    depends_on:
+      - template-celery-server
+
+  template-redis:
+    container_name: "template-redis"
+    image: "redis:latest"
+    networks:
+      - template-network
+
+  template-celery-redis:
+    container_name: "template-celery-redis"
+    image: "redis:latest"
+    networks:
+      - template-network
+
+  template-mongo:
+    container_name: "template-mongo"
+    image: "mongo:latest"
+    networks:
+      - template-network
+
+  template-mariadb:
+    container_name: "template-mariadb"
+    image: "mariadb:latest"
+    environment:
+      - MYSQL_ROOT_PASSWORD=template
+    ports:
+      - "8002:3306"
+    networks:
+      - template-network
+
+networks:
+  template-network:
+    name: 'template-network'
+    driver: bridge
+    attachable: true

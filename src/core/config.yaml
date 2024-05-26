@@ -1,0 +1,21 @@
+environment: &default
+  app_name: My Python FastAPI Template
+  work_env: 'local'
+
+local:
+  <<: *default
+  app:
+    port: 8000
+    host: '0.0.0.0'
+  rdb:
+    host: 'mysql+pymysql://root:template@template-mariadb:3306'
+  redis:
+    host: 'template-redis'
+    port: 6379
+    index: 0
+  mongo:
+    host: 'template-mongo'
+    port: 27017
+  celery:
+    broker_url: "redis://template-celery-redis:6379/0"
+    name: "template"
