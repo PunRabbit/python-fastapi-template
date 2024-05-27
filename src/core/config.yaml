@@ -1,8 +1,8 @@
 environment: &default
   app_name: My Python FastAPI Template
-  work_env: 'local'
+  work_env: 'docker'
 
-local:
+docker:
   <<: *default
   app:
     port: 8000
